@@ -46,13 +46,13 @@
 %%
 
 caler:
-        caler expr EOL        {  }
+        caler expr EOL                
         | 
         ;
 
 expr:
-        number
-        | VAR                       { $$ = getDataFromVar($1); }                  
+        number  
+        | VAR                       { $$ = getDataFromVar($1); }                 
         
         | expr ADD expr             { reg[26] = $1 + $3;  $$ = $1 + $3; }
         | expr SUB expr             { reg[26] = $1 - $3; $$ = $1 - $3; }
@@ -69,10 +69,9 @@ expr:
 	| SUB expr                  { reg[26] = -$2; $$ = -$2;}
         
         | IF number EQL number      { if($2 == $4) printf("EQ"); else printf("NOT EQ"); }
+        | VAR_IND VAR EQL expr    { makeVar($2, $4); }
 
-	| VAR_IND VAR EQL expr    { makeVar($2, $4); }
-
-        | PRINT expr                { $$ = printf("%d", $2); }
+        | PRINT expr                { $$ = printf("%d\n", $2); }
         ;
 
 number: DEC                    
