@@ -1,0 +1,21 @@
+loop 2
+	$rA = 2+5
+	loop 9
+		printD $rA
+	endloop
+	$rA = 2+5
+	$rZ = $rZ + 98
+	printH $rZ
+endloop
+printD $rA
+printH $rZ
+$rA = 2+5
+$rB = 97+96
+if $rX== $rZ+2
+	$rY = 2
+	$rB = 3
+endif
+if 98== 99
+	$rA = 2+98
+endif
+$rC = 95+94

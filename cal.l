@@ -9,6 +9,7 @@
 
 %%
 
+"$r"[A-Z]      { yylval.number = yytext[2]-'A'; return VAR; }
 [0-9]+      { yylval.number = atoi(yytext); return DEC;}
 [0-9a-fA-F]+[hH]  { yylval.number = (int)strtol(yytext,NULL, 16); return HEC;}
 "+"         { return ADD; }
@@ -23,12 +24,16 @@
 "|"         { return OR; }
 "!"         { return NOT; }
 "="         { return EQL; }
+"=="         { return DOUEQL; }
+":"         { return COLON; }
 "var"	    { return VAR_IND; }
-"print"	    { return PRINT; }
+"printD"	    { return PRINTDEC; }
+"printH"	    { return PRINTHEX; }
 [iI][fF]				{ return IF; }
-[eE][lL][sS][eE]			{ return ELSE; }
+[eE][nN][dD][iI][fF]			{ return ENDIF; }
 [lL][oO][oO][pP]			{ return LOOP; }
-[a-zA-Z0-9]+      { yylval.str = strdup(yytext); return VAR; }
+[eE][nN][dD][lL][oO][oO][pP]			{ return ENDLOOP; }
+
 
 
 
