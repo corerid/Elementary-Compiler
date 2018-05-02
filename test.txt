@@ -1,21 +1,27 @@
-loop 2
-	$rA = 2+5
-	loop 9
-		printD $rA
+loop 1 : 5
+	$rA = $rA+2
+	printD $rA
+	print "FINALLY ESAS"
+	loop 3:6
+		$rB = $rB + 3
+		printD $rB
+		print "KUY"
 	endloop
-	$rA = 2+5
-	$rZ = $rZ + 98
-	printH $rZ
+	print "END"
 endloop
-printD $rA
-printH $rZ
-$rA = 2+5
-$rB = 97+96
-if $rX== $rZ+2
+loop 1 : 3
+	print "HI"
+endloop
+$rA = $rB
+printH $rA
+$rX = 5
+$rZ = 2+1
+if $rX == $rZ+2
 	$rY = 2
 	$rB = 3
+	print "HELLO, WORLD\n"
 endif
-if 98== 99
+if 98==98
 	$rA = 2+98
 endif
-$rC = 95+94
+printH $rA

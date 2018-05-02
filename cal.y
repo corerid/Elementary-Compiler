@@ -147,32 +147,40 @@ ifstatement:    IF condition EOL
         
 loopstatement:  LOOP conditionLoop EOL            
                 statements
-                ENDLOOP EOL                     { looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); $$ = fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb); }
+                ENDLOOP EOL                     { looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); fprintf(fp, "\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb); printf("\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb); /*$$ = fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb);*/ }
                 | LOOP conditionLoop EOL
                   statements
                   inloopstatement
-                  ENDLOOP EOL                   { looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); $$ = fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb); }
+                  ENDLOOP EOL                   { looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); fprintf(fp, "\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb); printf("\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb);/*$$ = fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb);*/ }
                 | LOOP conditionLoop EOL
                   inloopstatement
                   statements             
-                  ENDLOOP EOL                   { looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); $$ = fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb); }
+                  ENDLOOP EOL                   { looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); fprintf(fp, "\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb); printf("\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb);/*$$ = fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb);*/ }
                 | LOOP conditionLoop EOL
                   statements
                   inloopstatement
                   statements
-                  ENDLOOP EOL                   { looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); $$ = fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb); }
+                  ENDLOOP EOL                   { looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); fprintf(fp, "\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb); printf("\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb);/*$$ = fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb);*/ }
 
                 ;
 
 inloopstatement:        LOOP conditionLoop EOL
                         statements
-                        ENDLOOP EOL             { labelLoop-=1; looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb);}
+                        ENDLOOP EOL             { looplabel = pop(looplabel, &llb); int int_llb = atoi(llb); fprintf(fp, "\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb); printf("\tpop %%rcx\n\tdec %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tjnz L%d\nEL%d:\n", int_llb, int_llb);/*fprintf(fp, "\tpop %%rcx\n\tloop L%d\n\n", int_llb); printf("\tpop %%rcx\n\tloop L%d\n\n", int_llb);*/ }
 
 condition:      expr DOUEQL expr                  { $$ = fprintf(fp, "\tpop %%rbx\n\tpop %%rax\n\tcmp %%rax, %%rbx\n\tjnz LI%d\n\n", label); printf("\tpop %%rbx\n\tpop %%rax\n\tcmp %%rax, %%rbx\n\tjnz LI%d\n\n", label); }
                 
                 ;
 
-conditionLoop:  expr             { fprintf(fp, "\tpop %%rcx\n\tpush %%rcx\nL%d:\n", labelLoop); printf("\tpop %%rcx\n\tpush %%rcx\nL%d:\n", labelLoop); char tmp[20]; sprintf(tmp, "%d", labelLoop); looplabel = push(looplabel, tmp); labelLoop+=1; }
+conditionLoop:  expr COLON expr            { 
+                                                        fprintf(fp, "\tpop %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tje EL%d\n\nL%d:\n\tpush %%rbx\n\tpush %%rcx\n", labelLoop, labelLoop); 
+                                                        printf("\tpop %%rcx\n\tpop %%rbx\n\tcmp %%rbx, %%rcx\n\tje EL%d\n\nL%d:\n\tpush %%rbx\n\tpush %%rcx\n", labelLoop, labelLoop); 
+                                                        // fprintf(fp, "\tpop %%rcx\n\tpush %%rcx\nL%d:\n", labelLoop); 
+                                                        // printf("\tpop %%rcx\n\tpush %%rcx\nL%d:\n", labelLoop); 
+                                                        char tmp[20]; sprintf(tmp, "%d", labelLoop); 
+                                                        looplabel = push(looplabel, tmp); 
+                                                        labelLoop+=1; 
+                                                }
                 ;
 
 expr:
