@@ -29,10 +29,12 @@
 "var"	    { return VAR_IND; }
 "printD"	    { return PRINTDEC; }
 "printH"	    { return PRINTHEX; }
+"print"         { return PRINT; }
 [iI][fF]				{ return IF; }
 [eE][nN][dD][iI][fF]			{ return ENDIF; }
 [lL][oO][oO][pP]			{ return LOOP; }
 [eE][nN][dD][lL][oO][oO][pP]			{ return ENDLOOP; }
+"\""([^\"])*"\""            { yylval.str = strdup(yytext); return MSG; }
 
 
 
