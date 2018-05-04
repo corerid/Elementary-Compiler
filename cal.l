@@ -2,8 +2,6 @@
     #include <stdlib.h>
     #include "cal.tab.h"
     void yyerror(char *);
-    void push(void);
-    void pop(void);
  
 %}
 
