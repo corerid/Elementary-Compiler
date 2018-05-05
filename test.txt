@@ -1,11 +1,11 @@
 loop 1 : 5
 	$rA = $rA+2
 	printD $rA
-	print "FINALLY ESAS"
+	print "FINALLY"
 	loop 3:6
 		$rB = $rB + 3
 		printD $rB
-		print "KUY"
+		print "WOW"
 	endloop
 	print "END"
 endloop
