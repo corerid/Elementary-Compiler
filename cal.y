@@ -107,6 +107,7 @@ line:   EOL
 statement:      VAR EQL expr                            {       
                                                                 fprintf(fp, "\tpop %%rax\n\tmov %%rax, -%d(%%rbp)\n\n", ($1+1)*8); 
                                                                 a[$1] = -(($1+1)*8);
+                                                                var[$1] = $3;
                                                         }
                 | print
                 ;
@@ -179,7 +180,7 @@ expr:
         | expr ADD expr             { $$ = $1 + $3; fprintf(fp, "\tpop %%rbx\n\tpop %%rax\n\tadd %%rbx, %%rax\n\tpush %%rax\n\n"); }
         | expr SUB expr             { $$ = $1 - $3; fprintf(fp, "\tpop %%rbx\n\tpop %%rax\n\tsub %%rbx, %%rax\n\tpush %%rax\n\n"); }
         | expr MUL expr             { $$ = $1 * $3; fprintf(fp, "\tpop %%rbx\n\tpop %%rax\n\tmul %%rbx\n\tpush %%rax\n\n"); }
-	| expr MOD expr             { $$ = $1-($1/$3*$3); fprintf(fp, "\tpop %%rbx\n\tpop %%rax\n\txor %%rdx, %%rdx\n\tidiv %%rbx\n\tpush %%rdx\n\n"); }
+	| expr MOD expr             { $$ = $1%$3; fprintf(fp, "\tpop %%rbx\n\tpop %%rax\n\txor %%rdx, %%rdx\n\tidiv %%rbx\n\tpush %%rdx\n\n"); }
         | expr DIV expr             { $$ = $1 / $3; fprintf(fp, "\tpop %%rbx\n\tpop %%rax\n\txor %%rdx, %%rdx\n\tidiv %%rbx\n\tpush %%rax\n\n"); }
 
 	| OP expr CP                { $$ = $2; }

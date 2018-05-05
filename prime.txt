@@ -1,0 +1,17 @@
+$rA = 2
+loop 2:101
+	$rB = 2
+	$rZ = 0
+	loop $rB:$rA
+		if $rA\$rB == 0
+			$rZ = 1
+		endif
+		$rB = $rB+1
+	endloop
+	if $rZ == 0
+		print "Prime Number"
+		printD $rA
+	endif
+	$rA = $rA+1
+endloop
+
