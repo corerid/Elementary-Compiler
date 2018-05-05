@@ -16,7 +16,6 @@
 "/"         { return DIV; }
 "("         { return OP;  }
 ")"         { return CP;  }
-"^"         { return POW; }
 "\\"        { return MOD; }
 "&"         { return AND; }
 "|"         { return OR; }
@@ -24,7 +23,6 @@
 "="         { return EQL; }
 "=="         { return DOUEQL; }
 ":"         { return COLON; }
-"var"	    { return VAR_IND; }
 "printD"	    { return PRINTDEC; }
 "printH"	    { return PRINTHEX; }
 "print"         { return PRINT; }

@@ -83,9 +83,8 @@ struct node* looplabel = NULL; /* create frist node */
 }
 
 %token<number> VAR DEC HEC
-%token<number> ADD SUB MUL DIV MOD POW
 %token<number> EOL OP CP AND OR NOT EQL DOUEQL COLON PRINTDEC PRINTHEX PRINT 
-%token<number> VAR_IND IF ENDIF LOOP ENDLOOP
+%token<number> IF ENDIF LOOP ENDLOOP
 %token<str> MSG
 %left ADD SUB 
 %left MUL DIV MOD
